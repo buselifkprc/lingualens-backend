@@ -21,7 +21,6 @@ def get_profile(user_id):
         "profile_image": user.profile_image
     }), 200
 
-
 @bp.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
@@ -43,7 +42,6 @@ def register():
     db_session.commit()
     return jsonify({"message": "User registered successfully"}), 201
 
-
 @bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -55,23 +53,6 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
 
     return jsonify({"message": "Login successful", "user_id": user.id}), 200
-
-
-@bp.route("/translations/<int:user_id>", methods=["GET"])
-def get_translations(user_id):
-    translations = db_session.query(Translation).filter_by(user_id=user_id).all()
-    
-    result = []
-    for t in translations:
-        result.append({
-            "id": t.id,
-            "original_text": t.original_text,
-            "target_language": t.target_language,
-            "created_at": t.created_at.isoformat()
-        })
-    
-    return jsonify(result), 200
-
 
 @bp.route("/translations", methods=["POST"])
 def add_translation():
@@ -89,6 +70,22 @@ def add_translation():
     db_session.commit()
 
     return jsonify({"message": "Translation added successfully"}), 201
+
+@bp.route("/translations/<int:user_id>", methods=["GET"])
+def get_translations(user_id):
+    translations = db_session.query(Translation).filter_by(user_id=user_id).all()
+    
+    result = []
+    for t in translations:
+        result.append({
+            "id": t.id,
+            "original_text": t.original_text,
+            "target_language": t.target_language,
+            "created_at": t.created_at.isoformat()
+        })
+    
+    return jsonify(result), 200
+
 @bp.route("/reviews", methods=["POST"])
 def add_review():
     data = request.get_json()
@@ -109,7 +106,6 @@ def add_review():
     db_session.commit()
 
     return jsonify({"message": "Review saved successfully"}), 201
-
 
 @bp.route("/reviews/<int:user_id>", methods=["GET"])
 def get_reviews(user_id):
