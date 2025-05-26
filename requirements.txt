@@ -1,5 +1,9 @@
 Flask
-python-dotenv
-requests
 Flask-Cors
 Flask-SQLAlchemy
+python-dotenv
+requests
+pytesseract
+Pillow
+firebase-admin
+psycopg2-binary

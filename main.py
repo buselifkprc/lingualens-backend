@@ -1,16 +1,24 @@
+import app.firebase_admin_init  # Firebase Admin başlatılır
 from flask import Flask
 from flask_cors import CORS
 from app.routes import bp
 from app.database import Base, engine
 
-app = Flask(__name__)
-CORS(app)
+def create_app():
+    app = Flask(__name__)
+    
+    # CORS ayarları: frontend'in portunu burada açıkça belirtebilirsin (güvenlik için önerilir)
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Create tables if they don't exist
-Base.metadata.create_all(bind=engine)
+    # Veritabanı tablolarını oluştur
+    with app.app_context():
+        Base.metadata.create_all(bind=engine)
 
-# Register routes
-app.register_blueprint(bp)
+    # Blueprint'i yükle
+    app.register_blueprint(bp)
+
+    return app
 
 if __name__ == "__main__":
+    app = create_app()
     app.run(debug=True)

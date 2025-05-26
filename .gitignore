@@ -1,1 +1,23 @@
 GoogleService-Info.plist
+# Python
+__pycache__/
+*.pyc
+
+# Sanal ortam
+venv/
+
+# Ortam değişkenleri (şifreler, API anahtarları)
+.env
+
+# Firebase servis hesapları (çok önemli)
+*.json
+
+# IDE dosyaları
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
+
+# Yüklenen görseller
+uploads/

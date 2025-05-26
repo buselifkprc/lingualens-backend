@@ -9,4 +9,5 @@ class Translation(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     original_text = Column(Text, nullable=False)
     target_language = Column(String(10), nullable=False)
+    translated_text = Column(Text, nullable=True)  
     created_at = Column(DateTime, default=datetime.utcnow)
